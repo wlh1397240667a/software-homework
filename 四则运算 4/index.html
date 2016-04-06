@@ -1,0 +1,229 @@
+﻿<!DOCTYPE html>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<html>
+    <head>
+        <!--
+        Customize this policy to fit your own app's needs. For more guidance, see:
+            https://github.com/apache/cordova-plugin-whitelist/blob/master/README.md#content-security-policy
+        Some notes:
+            * gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
+            * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
+            * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
+                * Enable inline JS: add 'unsafe-inline' to default-src
+        -->
+       <link rel=stylesheet type="text/css" href="color.css">
+      <title>四则运算</title>
+</style>
+<!--最佳化屏幕宽度-->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<!--引用jQuery Mobile函数库 应用ThemeRoller制作的样式-->
+<link rel="stylesheet" href="themes/mythheme.min.css" />
+<link rel="stylesheet" href="themes/jquery.mobile.icons.min.css" />
+<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile.structure-1.4.5.min.css" />
+<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+
+
+    </head>
+    <body>           
+<div data-role="page" data-title="小学四则运算" id="first" data-theme="a">
+		<div data-role="header">
+			<h1>小学四则运算</h1>
+		</div>
+<div data-role="content" id="content">
+          <ul>
+       <a href="login.htm" rel="external">登录</a>
+       <a href="#" rel="external">注销</a>
+       <a href="formula.htm" rel="external">数学公式</a>
+       <a href="advice.htm" rel="external">意见反馈</a>
+       </ul>
+	
+    <h4>打好基础，数学高分更容易</h4>
+<div class="content">
+	<div class="nav">
+		<span>请输入题目的数量：</span><input type="text" id="shu">
+		<button type='button' class="btn btn-success" onclick="play_allE()">开始生成题目</button><br> <span id="textE" ></span><span id="text2E"></span>
+		<div data-role="footer">
+			<h4>版权所有 侵版必究</h4>
+		</div>
+ </body>
+ <script>
+function GetRandomNumE(Min,Max)
+	{   
+		var Range = Max - Min;   
+		var Rand = Math.random();   
+		return(Min + Math.round(Rand * Range));   
+	}
+	function max_numE(x,y) {
+		var t;
+		while (y) {
+			t = x%y;
+			x = y;
+			y = t;
+		}
+		return x;
+	}
+	function fenshuE(a,b,p) {
+		if (p==1) {
+			if (a>b) {
+				return a+"/"+b;
+			}else if(a<b){
+				return a+"/"+b;
+			}else {
+				return 1;
+			}
+		}else {
+			var x=a/p;
+			var y=b/p;
+			if(y==1){
+				return x;
+			}else{
+				return x+"/"+y;
+			}
+		}
+	}
+	function f_countE(a,b,c,d) {
+			var Arr = ["+","-","*","/"];  
+			var n = GetRandomNumE(0,3);
+			switch(Arr[n]){
+				case "+":{
+				var sum_x=(a*d)+(b*c);
+				var sum_y=b*d;
+				max_x=max_numE(sum_x,sum_y);
+				max_y=max_numE(sum_x,sum_y);
+				var N=fenshuE(sum_x,sum_y,max_x);
+				return a+"/"+b+"+"+c+"/"+d+"="+N;
+				break;
+				}
+				case "-":{
+				var sum_x=(a*d)-(b*c);
+					while (sum_x<0) {
+						var a = GetRandomNumE(1,30);    
+						var b = GetRandomNumE(1,30);
+						var c = GetRandomNumE(1,30);    
+						var d = GetRandomNumE(1,30);
+						var sum_x=(a*d)-(b*c);
+					}
+				var sum_y=b*d;
+				max_x=max_numE(sum_x,sum_y);
+				max_y=max_numE(sum_x,sum_y);
+				var N=fenshuE(sum_x,sum_y,max_x);
+				return a+"/"+b+"-"+c+"/"+d+"="+N;
+				break;
+				}
+				case "*":{
+				var sum_x=a*c;
+				var sum_y=b*d;
+				max_x=max_numE(sum_x,sum_y);
+				max_y=max_numE(sum_x,sum_y);
+				var N=fenshuE(sum_x,sum_y,max_x);
+				return a+"/"+b+"*"+c+"/"+d+"="+N;
+				break;
+				}
+				case "/":{
+				var sum_x=a*d;
+				var sum_y=b*c;
+				max_x=max_numE(sum_x,sum_y);
+				max_y=max_numE(sum_x,sum_y);
+				var N=fenshuE(sum_x,sum_y,max_x);
+				return a+"/"+b+"÷"+c+"/"+d+"="+N;
+				break;
+				}
+			}
+	}
+	function countE(a,b){
+			var Arr = ["+","-","*","/"];  
+			var n = GetRandomNumE(0,3);
+			switch(Arr[n]){
+				case "+":{
+				var sum=a+b;
+				return a+"+"+b+"="+sum;
+				break;
+				}
+				case "-":{
+				var sum=a-b;
+				while(sum<0){
+					var a = GetRandomNumE(1,30);
+					var b = GetRandomNumE(1,30);
+					var sum=a-b;
+				}
+				return a+"-"+b+"="+sum;
+				break;
+				}
+				case "*":{
+				var sum=a*b;
+				return a+"*"+b+"="+sum;
+				break;
+				}
+				case "/":{
+				var sum=a/b;
+				while(a%b!==0){
+					var max_x=max_numE(a,b);
+					var N=fenshuE(a,b,max_x);
+					return a+"÷"+b+"="+N;
+				}
+				return a+"÷"+b+"="+sum;
+				break;
+				}
+			}
+	}
+	function pl_fE() {
+		var son_a = GetRandomNumE(1,30);    
+		var par_b = GetRandomNumE(1,30);
+		var son_c = GetRandomNumE(1,30);    
+		var par_d = GetRandomNumE(1,30);
+		var suma=f_countE(son_a,par_b,son_c,par_d);
+		return suma;
+	}
+	function plE() {
+			var a = GetRandomNumE(1,30);   
+			var b = GetRandomNumE(1,30);
+			var sumb=countE(a,b);
+			return sumb;
+	}
+	function play_allE() {
+			document.getElementById("textE").innerHTML=null;
+			document.getElementById("text2E").innerHTML=null;
+			var S=document.getElementById("shu").value;
+			for (i = 1; i <=S; i++) {
+				var a = GetRandomNumE(0,1);
+				 document.getElementById("textE").innerHTML+=("<br>"+"第"+i+"题：");
+				switch (a) {
+					case 0:
+                                              
+						var A=plE();
+						var strs = A.split("=");
+						document.getElementById("textE").innerHTML+=(strs[0]+"="+"<br>");
+						document.getElementById("text2E").innerHTML+=("<br>"+"第"+i+"题答案："+strs[1]+"<br>");
+						break;
+					case 1:
+                                        
+						var B=pl_fE();
+						var strs = B.split("=");
+						document.getElementById("textE").innerHTML+=(strs[0]+"="+"<br>");
+						document.getElementById("text2E").innerHTML+=("<br>"+"第"+i+"题答案："+strs[1]+"<br>");
+						break;
+				}
+			}
+	}
+ </script>
+</html>

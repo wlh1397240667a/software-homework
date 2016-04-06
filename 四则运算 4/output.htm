@@ -1,0 +1,112 @@
+﻿<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<title>四则运算</title>
+<style type="text/css">
+<!--
+body{
+	background-image:url(images/bg1.jpg);
+}
+-->
+</style>
+<!--最佳化屏幕宽度-->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<!--引用jQuery Mobile函数库 应用ThemeRoller制作的样式-->
+<link rel="stylesheet" href="themes/mythheme.min.css" />
+<link rel="stylesheet" href="themes/jquery.mobile.icons.min.css" />
+<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile.structure-1.4.5.min.css" />
+<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    <script type="text/javascript">
+      /*
+num 要产生多少个随机数
+from 产生随机数的最小值
+to 产生随机数的最大值
+*/
+function createRandom(num ,from ,to )
+{
+	var arr=[];
+	for(var i=from;i<=to;i++)
+		arr.push(i);
+	arr.sort(function(){
+		return 0.5-Math.random();
+	});
+	arr.length=num;
+	return arr;
+}
+
+function createRandom2(num , from , to)
+{
+	var arr=[];
+	var json={};
+	while(arr.length<num)
+	{
+		//产生单个随机数
+		var ranNum=Math.ceil(Math.random()*(to-from))+from;
+		//通过判断json对象的索引值是否存在 来标记 是否重复
+		if(!json[ranNum])
+		{
+			json[ranNum]=1;
+			arr.push(ranNum);
+		}
+		
+	}
+	return arr;
+	
+	
+}
+alert(createRandom2(10,0,50));//生成10个从0-50之间不重复的随机数
+    
+        function check_answer(i,answer)
+        {
+            var input = document.getElementById("line"+i);
+            var output = document.getElementById("myDiv"+i);
+            if(input.value == String(answer))
+            {
+                output.innerHTML = "正确";
+            }
+            else
+            {
+                output.innerHTML = "错误";
+            }
+            update_result()
+        }
+        function update_result()
+        {
+            var result = document.getElementById("result");
+            var num = 3;
+            var x = 0;
+            for(var i = 0; i < num; i++)
+            {
+                var output = document.getElementById("myDiv"+i);
+                if(output.innerHTML == "正确")
+                {
+                    x ++;
+                }
+            }
+            result.innerHTML = x+"/"+num;
+        }
+    
+    </script>
+<table border='0'>    <tr>
+            <td>60*40=</td>
+            <td><label for="line0"></label><input oninput="check_answer(0, '2400')" type="text" id="line0" /><a id="myDiv0"></a></td>
+    </tr>
+        <tr>
+            <td>17-94=</td>
+            <td><label for="line1"></label><input oninput="check_answer(1, '-77')" type="text" id="line1" /><a id="myDiv1"></a></td>
+    </tr>
+        <tr>
+            <td>27+95*17=</td>
+            <td><label for="line2"></label><input oninput="check_answer(2, '1642')" type="text" id="line2" /><a id="myDiv2"></a></td>
+    </tr>
+    </table><p id = 'result'> 0/3 </p>
+<a href="index.html">返回</a>
+
+<button onclick="window.location.reload()">继续</button>
+

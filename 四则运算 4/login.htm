@@ -1,0 +1,49 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta charset="">
+<title>四则运算</title>
+<!--最佳化屏幕宽度-->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<!--引用jQuery Mobile函数库 应用ThemeRoller制作的样式-->
+<link rel="stylesheet" href="themes/mythheme.min.css" />
+<link rel="stylesheet" href="themes/jquery.mobile.icons.min.css" />
+<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile.structure-1.4.5.min.css" />
+<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+
+</head>
+<body>
+<script type="text/javascript">
+function sendok(){	
+	if(userid.value!="" && userpwd.value!=""){		
+		localStorage.userid=userid.value;
+		sessionStorage.userpwd=userpwd.value;
+		return true;
+	}else{
+		alert("请输入账号");
+		return false;
+	}
+}
+
+function isload(){
+if(localStorage.userid)
+	userid.value=localStorage.userid;
+}
+</script> 
+</head> 
+<body onload="isload()">
+<img src="images/logo.jpg" />
+<form method="post" action="index.html" onsubmit="return sendok();">
+	请输入你的账号：<br />
+	<input type="text" id="userid" value="" autofocus><br />
+	请输入你的密码：<br />
+	<input type="password" id="userpwd" value=""><br /><font style="font-size:12px">
+	(测试账号：guest 密码:1234)</font><br />
+	<input id="btn_send" type="submit" value="登录"><br />	
+</form>
+		
+</body>
+</html>
